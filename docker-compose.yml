@@ -1,0 +1,30 @@
+services:
+  db:
+    container_name: patient_db
+    image: postgres
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: clinicdb
+    ports:
+      - "54329:5432"
+  backend:
+    container_name: patient_backend
+    build: ./backend
+    environment:
+      DB_HOST: db
+      DB_USER: user
+      DB_PASS: pass
+      DB_NAME: clinicdb
+      DATABASE_URL: postgres://user:pass@db:5432/clinicdb
+    ports:
+      - "5100:5100"
+    depends_on:
+      - db
+  frontend:
+    container_name: patient_frontend
+    build: ./frontend
+    ports:
+      - "3100:80"
+    depends_on:
+      - backend
