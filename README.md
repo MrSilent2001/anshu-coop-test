@@ -40,7 +40,7 @@ docker exec -it patient_backend npx prisma generate
 
 2. Backend (Node.js + Express)
 
-- Implement CRUD RESTful API for the patient
+- Implement RESTful CRUD API for the patient
 
 
 ## Optional features
