@@ -14,3 +14,8 @@ export interface AddPatientFormValues {
     dateOfBirth: string;
     status: string;
 }
+
+export type LoginFormValues = {
+    username: string;
+    password: string;
+};
