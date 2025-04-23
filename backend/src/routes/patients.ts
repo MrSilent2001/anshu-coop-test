@@ -1,5 +1,7 @@
 import { Router } from 'express';
 import prisma from '../libs/prisma';
+import {$Enums} from "../generated/prisma";
+import Status = $Enums.Status;
 
 const router = Router();
 
@@ -14,19 +16,19 @@ router.get('/getAll', async (req, res) => {
   //TODO: implement the logic to fetch patients from a database
     try{
         const page = parseInt(req.query.page as string) || 1;
-        const limit = parseInt(req.query.limit as string) || 10;
+        const limit = parseInt(req.query.limit as string) || 5;
         const offset = (page - 1) * limit;
 
-        const filter = req.query.filter as string || "All";
+        const filter = req.query.status as string;
         const where: any = {};
 
         if (filter === 'Active') {
             where.status = 'ACTIVE';
         }
-        else if (filter === 'Inactive') {
+
+        if (filter === 'Inactive') {
             where.status = 'INACTIVE';
         }
-        else{}
 
         const patients = await prisma.patient.findMany({
             where: where,
@@ -35,7 +37,17 @@ router.get('/getAll', async (req, res) => {
             orderBy: {id: 'asc'},
         });
 
-        res.status(200).json(patients);
+        const total = await prisma.patient.count({
+            where: where,
+        });
+
+        res.status(200).json({
+            data: patients,
+            page,
+            limit,
+            totalPages: Math.ceil(total / limit),
+            totalItems: total,
+        });
     }catch(error: any){
         res.status(500).json({error: error.message});
     }
@@ -47,8 +59,8 @@ router.post('/create', async (req, res) => {
         const newPatient = await prisma.patient.create({
             data:{
                 name: req.body.name,
-                dateOfBirth: req.body.dateOfBirth,
-                status: req.body.status
+                dateOfBirth: new Date(req.body.dateOfBirth),
+                status: req.body.status as Status,
             }
         });
 
