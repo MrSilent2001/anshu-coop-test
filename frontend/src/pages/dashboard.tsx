@@ -10,6 +10,9 @@ import {
 import CreatePatients from "@/pages/createPatients";
 import SearchBar from "@/components/searchbar";
 import Filter from "@/components/filter";
+import {MdLogout} from "react-icons/md";
+import {useNavigate} from "react-router-dom";
+import {FaStethoscope} from "react-icons/fa";
 
 
 const Dashboard: React.FC = () => {
@@ -18,6 +21,8 @@ const Dashboard: React.FC = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [statusFilter, setStatusFilter] = useState("");
     const [dialogOpen, setDialogOpen] = useState(false);
+
+    const navigate = useNavigate();
 
     //Fetch all patient records
     const fetchPatients = async (page = 1, status = "") => {
@@ -83,24 +88,53 @@ const Dashboard: React.FC = () => {
 
     return (
         <div className="w-full min-h-screen flex flex-col">
-            <div className="bg-blue-500 p-5 text-center">
-                <p className="text-2xl font-bold text-white">MediCare Patient Details</p>
-            </div>
+            <div className="relative bg-blue-600 p-5 flex items-center justify-center">
+                <div className="flex">
+                    <p className="text-2xl font-bold text-white">MediCare Patient Details</p>
 
-            <div className="flex mt-10 items-center justify-end gap-5 w-5/6 mx-10 ">
-
-                <Filter statusFilter={statusFilter} onFilterChange={handleFilterChange}/>
+                    <CustomButton
+                        type="button"
+                        buttonClassName="text-white shadow-none"
+                        icon={<FaStethoscope/>
+                        }
+                    />
+                </div>
 
                 <CustomButton
                     type="button"
-                    buttonClassName="bg-green-700 hover:bg-green-600 text-white font-bold py-2 px-4"
-                    buttonLabel="Add New Patient"
-                    onClick={() => setDialogOpen(true)}
+                    buttonClassName="absolute right-5 top-5 bg-transparent text-white hover:text-gray-300 p-0 mr-5 border-none shadow-none"
+                    icon={<MdLogout className="text-2xl"/>}
+                    onClick={() => navigate("/login")}
                 />
             </div>
 
-            <div className="flex flex-row mt-10 justify-center">
-                <SearchBar onSearchResults={handleSearchResults} />
+
+            <div className="flex mt-10 items-center justify-between gap-5 w-7/8 mx-10 ">
+
+                <div className="flex gap-5">
+                    <SearchBar onSearchResults={handleSearchResults}/>
+
+                    <Filter statusFilter={statusFilter} onFilterChange={handleFilterChange}/>
+                </div>
+
+                <div className="flex gap-5">
+                    <CustomButton
+                        type="button"
+                        buttonClassName="bg-blue-100 border border-blue-500 hover:bg-blue-500 hover:text-white text-blue-500 font-semibold py-2 px-4"
+                        buttonLabel="Add New Patient"
+                        onClick={() => setDialogOpen(true)}
+                    />
+                    <CustomButton
+                        type="button"
+                        buttonClassName="bg-red-100 border border-red-500 text-red-500 hover:bg-red-500 hover:text-white font-semibold py-2 px-4 w-[150px]"
+                        buttonLabel="Reset"
+                        onClick={() => {
+                            setStatusFilter("");
+                            setCurrentPage(1);
+                            fetchPatients(1, "");
+                        }}
+                    />
+                </div>
             </div>
 
             <div className="flex justify-center items-center mt-10">

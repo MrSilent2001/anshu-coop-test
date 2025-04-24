@@ -5,6 +5,7 @@ import TextInput from "@/components/textInput";
 import CustomButton from "@/components/button";
 import { SearchFormValues } from "@/types/types";
 import { searchPatients } from "@/api/patientsAPI";
+import {IoSearchOutline} from "react-icons/io5";
 
 type SearchBarProps = {
     onSearchResults: (patients: any[]) => void;
@@ -29,20 +30,22 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearchResults }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit(onSearch)} className="flex flex-row justify-center gap-4">
-            <TextInput
-                id="search"
-                type="text"
-                placeholder="Search"
-                className="w-[450px] h-[35px] bg-white border border-gray-400 rounded-xl"
-                register={register("search")}
-            />
-            <CustomButton
-                type="submit"
-                buttonClassName="h-[35px] bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4"
-                buttonLabel={loading ? "Searching..." : "Search"}
-                disabled={loading}
-            />
+        <form onSubmit={handleSubmit(onSearch)} className="flex flex-row justify-center">
+            <div className="flex border border-gray-400 hover:border-gray-500 rounded-md h-fit">
+                <TextInput
+                    id="search"
+                    type="text"
+                    placeholder="Search"
+                    className="w-[450px] h-[35px] bg-white border-none rounded-xl"
+                    register={register("search")}
+                />
+                <CustomButton
+                    type="submit"
+                    buttonClassName="text-gray-600 hover:text-black shadow-none "
+                    icon={<IoSearchOutline className="text-4xl" />}
+                    disabled={loading}
+                />
+            </div>
         </form>
     );
 };

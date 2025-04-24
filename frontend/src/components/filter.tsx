@@ -16,6 +16,7 @@ const FilterBar: React.FC<FilterBarProps> = ({ statusFilter, onFilterChange }) =
                 placeholder={"All"}
                 onChange={(value) => onFilterChange(value)}
                 width="150px"
+                className="border border-gray-400 rounded-md"
             />
     );
 };

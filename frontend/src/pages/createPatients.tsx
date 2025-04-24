@@ -62,7 +62,7 @@ const CreatePatients: React.FC<AddPatientDialogProps> = ({
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="sm:max-w-[475px] bg-white p-5">
+            <DialogContent className="sm:max-w-[550px] bg-white p-4">
                 <DialogHeader className="flex items-center justify-center">
                     <DialogTitle>Add New Patient</DialogTitle>
                     <DialogDescription>
@@ -91,6 +91,7 @@ const CreatePatients: React.FC<AddPatientDialogProps> = ({
                         <label className="w-40">Date of Birth:</label>
                         <DatePicker
                             id="dob"
+                            maxDate={new Date()}
                             onDateChange={(date) =>
                                 setValue("dateOfBirth", date ? date.toISOString().split("T")[0] : "")
                             }
@@ -100,29 +101,30 @@ const CreatePatients: React.FC<AddPatientDialogProps> = ({
                         <span className="text-center text-red-500 text-sm">{errors.dateOfBirth.message}</span>
                     )}
 
-                    <div className="flex items-center gap-4">
-                        <label className="w-32">Status:</label>
+                    <div className="flex items-center gap-4 w-100">
+                        <label className="mr-12">Status:</label>
                         <Dropdown
                             options={["ACTIVE", "INACTIVE"]}
                             value={status}
                             onChange={(value) => setValue("status", value)}
-                            width="300px"
+                            className="border border-gray-400 rounded-md ml-6"
+                            width="410px"
                         />
                     </div>
                     {errors.status && (
                         <span className="text-center text-red-500 text-sm">{errors.status.message}</span>
                     )}
 
-                    <div className="flex justify-center gap-4 mt-4">
+                    <div className="flex justify-center gap-10 mt-4">
                         <CustomButton
                             type="submit"
                             buttonLabel="Add Patient"
-                            buttonClassName="bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 w-[150px]"
+                            buttonClassName="bg-blue-100 border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white font-semibold py-2 px-4 w-[150px]"
                         />
                         <CustomButton
                             type="button"
                             buttonLabel="Cancel"
-                            buttonClassName="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 w-[150px]"
+                            buttonClassName="bg-red-100 border border-red-500 hover:bg-red-500 hover:text-white text-red-500 font-semibold py-2 px-4 w-[150px]"
                             onClick={handleDialogClose}
                         />
                     </div>

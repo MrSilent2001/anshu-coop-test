@@ -11,6 +11,7 @@ interface DatePickerProps {
     placeholder?: string;
     defaultDate?: string;
     label?: boolean;
+    maxDate?: Date;
 }
 
 export const DatePicker: React.FC<DatePickerProps> = ({
@@ -21,6 +22,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
                                                           label = false,
                                                           placeholder = '',
                                                           defaultDate = '',
+                                                          maxDate = null,
                                                       }) => {
     const [selectedDate, setSelectedDate] = useState<Date | undefined>(defaultDate ? new Date(defaultDate) : undefined);    const dateInputRef = useRef<HTMLInputElement>(null);
 
@@ -64,6 +66,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
                     placeholder=""
                     ref={dateInputRef}
                     onClick={openDatePicker}
+                    max={maxDate ? maxDate.toISOString().split('T')[0] : undefined}
                     className="w-full px-2 py-2 text-sm text-gray-700 rounded-md cursor-pointer focus:outline-none"
                     aria-label={labelName || 'Date Picker'}
                 />
