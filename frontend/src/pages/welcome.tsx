@@ -6,7 +6,7 @@ const Welcome: React.FC = () => {
     const navigate = useNavigate()
 
     return(
-        <div className="w-full h-screen flex flex-col items-center justify-center m-auto bg-blue-200 gap-15">
+        <div className="w-full h-screen flex flex-col items-center justify-center m-auto bg-blue-200 gap-10">
             <h1 className="text-5xl font-extrabold">Welcome to MedCare!</h1>
             <CustomButton
                 type="button"

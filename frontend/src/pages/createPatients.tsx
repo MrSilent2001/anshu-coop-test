@@ -63,7 +63,7 @@ const CreatePatients: React.FC<AddPatientDialogProps> = ({
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className="sm:max-w-[475px] bg-white p-5">
-                <DialogHeader>
+                <DialogHeader className="flex items-center justify-center">
                     <DialogTitle>Add New Patient</DialogTitle>
                     <DialogDescription>
                         Enter the new patient’s details below.
@@ -101,33 +101,31 @@ const CreatePatients: React.FC<AddPatientDialogProps> = ({
                     )}
 
                     <div className="flex items-center gap-4">
-                        <label className="w-27">Status:</label>
+                        <label className="w-32">Status:</label>
                         <Dropdown
                             options={["ACTIVE", "INACTIVE"]}
                             value={status}
                             onChange={(value) => setValue("status", value)}
-                            width="275px"
+                            width="300px"
                         />
                     </div>
                     {errors.status && (
                         <span className="text-center text-red-500 text-sm">{errors.status.message}</span>
                     )}
 
-                    <DialogFooter>
-                        <div className="flex justify-center gap-4 mt-4">
-                            <CustomButton
-                                type="submit"
-                                buttonLabel="Add Patient"
-                                buttonClassName="bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 w-[150px]"
-                            />
-                            <CustomButton
-                                type="button"
-                                buttonLabel="Cancel"
-                                buttonClassName="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 w-[150px]"
-                                onClick={handleDialogClose}
-                            />
-                        </div>
-                    </DialogFooter>
+                    <div className="flex justify-center gap-4 mt-4">
+                        <CustomButton
+                            type="submit"
+                            buttonLabel="Add Patient"
+                            buttonClassName="bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 w-[150px]"
+                        />
+                        <CustomButton
+                            type="button"
+                            buttonLabel="Cancel"
+                            buttonClassName="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 w-[150px]"
+                            onClick={handleDialogClose}
+                        />
+                    </div>
                 </form>
             </DialogContent>
         </Dialog>

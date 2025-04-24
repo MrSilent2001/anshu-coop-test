@@ -87,7 +87,7 @@ const Dashboard: React.FC = () => {
                 <p className="text-2xl font-bold text-white">MediCare Patient Details</p>
             </div>
 
-            <div className="flex mt-10 justify-end mx-25 gap-10">
+            <div className="flex mt-10 items-center justify-end gap-5 w-5/6 mx-10 ">
 
                 <Filter statusFilter={statusFilter} onFilterChange={handleFilterChange}/>
 

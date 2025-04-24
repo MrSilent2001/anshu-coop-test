@@ -33,8 +33,8 @@ const CustomTable: React.FC<TableProps> = ({
     };
 
     return (
-        <div className="flex flex-col w-7/8">
-            <Table className="border border-gray-400 rounded-lg">
+        <div className="flex flex-col w-3/4">
+            <Table className="border border-gray-400 rounded-xl">
                 <TableHeader className="bg-gray-600 text-white p-5">
                     <TableRow>
                         <TableHead className="text-center w-[100px]">Id</TableHead>
